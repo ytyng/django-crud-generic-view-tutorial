@@ -5,6 +5,9 @@ class Memo(models.Model):
     """
     メモモデル。実質、件名と本文のみ。
     """
+    class Meta:
+        ordering = ['-id']
+
     subject = models.CharField(
         verbose_name='件名',
         max_length=100,
