@@ -2,6 +2,9 @@ from django.db import models
 
 
 class Memo(models.Model):
+    """
+    メモモデル。実質、件名と本文のみ。
+    """
     subject = models.CharField(
         verbose_name='件名',
         max_length=100,
@@ -15,10 +18,12 @@ class Memo(models.Model):
         blank=True
     )
 
+    # created: auto_now_add を指定すると、作成日時を自動保存する
     created = models.DateTimeField(
         auto_now_add=True
     )
 
+    # updated: auto_now を指定すると、更新日時を自動保存する
     updated = models.DateTimeField(
         auto_now=True
     )
