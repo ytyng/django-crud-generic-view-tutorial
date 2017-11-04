@@ -11,7 +11,7 @@ ListView, DetailView, CreateView, UpdateView, DeleteView
 
 https://github.com/ytyng/django-crud-generic-view-tutorial/blob/master/memo/memo/views.py
 
-![動作の画像](https://raw.githubusercontent.com/ytyng/django-crud-generic-view-tutorial/master/pages/memo-overview.gif)
+![動作の画像](https://github.com/ytyng/django-crud-generic-view-tutorial/raw/master/pages/memo-overview.gif)
 
 ----
 
