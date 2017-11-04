@@ -1,0 +1,31 @@
+{% extends 'memo/base.html' %}
+{% block content %}
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="card card-default">
+          <ul class="list-group list-group-flush">
+            {% for o in object_list %}
+              <li class="list-group-item">
+                <a href="{% url 'memo_detail' o.pk %}">{{ o.subject }}</a>
+              </li>
+            {% empty %}
+              <li class="list-group-item">
+                メモはありません
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12 mt-3">
+        <a href="{% url 'memo_create' %}" class="btn btn-primary">新規作成</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

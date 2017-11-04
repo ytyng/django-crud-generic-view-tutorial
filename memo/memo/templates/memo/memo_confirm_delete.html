@@ -1,0 +1,22 @@
+{% extends 'memo/base.html' %}
+{% load bootstrap %}
+{% block meta_title %}削除確認{% endblock %}
+{% block page_title %}削除確認{% endblock %}
+{% block content %}
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+
+        <p>{{ object }} を削除していいですか?</p>
+
+        <form method="post">
+          <button class="btn btn-danger">削除する</button>
+          {% csrf_token %}
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

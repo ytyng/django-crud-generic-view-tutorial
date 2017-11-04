@@ -1,0 +1,21 @@
+{% extends 'memo/base.html' %}
+{% block meta_title %}{{ object.subject }}{% endblock %}
+{% block page_title %}{{ object.subject }}{% endblock %}
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="card card-default">
+          <div class="card-body">
+            {{ object.body }}
+          </div>
+          <div class="card-footer">
+            <a class="btn btn-primary" href="{% url 'memo_update' object.pk %}">修正</a>
+            <a class="btn btn-danger" href="{% url 'memo_delete' object.pk %}">削除</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+{% endblock %}

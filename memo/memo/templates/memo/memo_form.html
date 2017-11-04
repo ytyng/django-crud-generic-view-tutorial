@@ -1,0 +1,21 @@
+{% extends 'memo/base.html' %}
+{% load bootstrap %}
+{% block meta_title %}{% if object.pk %}{{ object.subject }}{% else %}新規作成{% endif %}{% endblock %}
+{% block page_title %}{% if object.pk %}{{ object.subject }}{% else %}新規作成{% endif %}{% endblock %}
+{% block content %}
+  <form method="post">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          {{ form|bootstrap }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <button class="btn btn-primary">保存</button>
+        </div>
+      </div>
+    </div>
+    {% csrf_token %}
+  </form>
+{% endblock %}
