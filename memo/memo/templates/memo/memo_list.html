@@ -8,7 +8,7 @@
           <ul class="list-group list-group-flush">
             {% for o in object_list %}
               <li class="list-group-item">
-                <a href="{% url 'memo_detail' o.pk %}">{{ o.subject }}</a>
+                <a href="{% url 'memo_detail' dbnum o.pk %}">{{ o.subject }}</a>
               </li>
             {% empty %}
               <li class="list-group-item">
@@ -35,7 +35,7 @@
   <div class="container">
     <div class="row">
       <div class="col-12 mt-3">
-        <a href="{% url 'memo_create' %}" class="btn btn-primary">新規作成</a>
+        <a href="{% url 'memo_create' dbnum %}" class="btn btn-primary">新規作成</a>
       </div>
     </div>
   </div>

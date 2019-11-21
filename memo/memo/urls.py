@@ -21,23 +21,23 @@ from . import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
-    url(r'^$',
+    url(r'^(?P<dbnum>\d+)$',
         views.MemoListView.as_view(),
         name='memo_list'),
 
-    url(r'^detail/(?P<pk>\d+)/$',
+    url(r'^detail/(?P<dbnum>\d+)/(?P<pk>\d+)/$',
         views.MemoDetailView.as_view(),
         name='memo_detail'),
 
-    url(r'^create/$',
+    url(r'^create/(?P<dbnum>\d+)$',
         views.MemoCreateView.as_view(),
         name='memo_create'),
 
-    url(r'^update/(?P<pk>\d+)/$',
+    url(r'^update/(?P<dbnum>\d+)/(?P<pk>\d+)/$',
         views.MemoUpdateView.as_view(),
         name='memo_update'),
 
-    url(r'^delete/(?P<pk>\d+)/$',
+    url(r'^delete/(?P<dbnum>\d+)/(?P<pk>\d+)/$',
         views.MemoDeleteView.as_view(),
         name='memo_delete'),
 ]

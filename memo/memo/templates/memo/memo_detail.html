@@ -10,8 +10,8 @@
             {{ object.body|linebreaksbr }}
           </div>
           <div class="card-footer">
-            <a class="btn btn-primary" href="{% url 'memo_update' object.pk %}">修正</a>
-            <a class="btn btn-danger" href="{% url 'memo_delete' object.pk %}">削除</a>
+            <a class="btn btn-primary" href="{% url 'memo_update' dbnum object.pk %}">修正</a>
+            <a class="btn btn-danger" href="{% url 'memo_delete' dbnum object.pk %}">削除</a>
           </div>
         </div>
 

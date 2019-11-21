@@ -71,6 +71,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'memo.wsgi.application'
 
+DATABASE_ROUTERS = ['memo.routing.DefaultOnlyMigrationRouter']
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases

@@ -1,11 +1,11 @@
 from django.contrib import messages
-from django.urls import reverse_lazy
+from django.urls import reverse
 from django.views.generic import \
     ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from .models import Memo
 from .forms import MemoForm
-
+from .tenancy import dbname, ensure_connect
 
 class MemoListView(ListView):
     """
@@ -16,6 +16,16 @@ class MemoListView(ListView):
     model = Memo
     paginate_by = 10  # 1ページに表示する件数
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['dbnum'] = self.kwargs['dbnum']
+        return context
+
+    def get_queryset(self):
+        dbnum = self.kwargs['dbnum']
+        ensure_connect(dbnum)
+        return Memo.objects.using(dbname(dbnum)).all()
+
 
 class MemoDetailView(DetailView):
     """
@@ -23,6 +33,16 @@ class MemoDetailView(DetailView):
     テンプレートは、何も指定しないと モデル名_detail.html が使われる
     """
     model = Memo
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['dbnum'] = self.kwargs['dbnum']
+        return context
+
+    def get_queryset(self):
+        dbnum = self.kwargs['dbnum']
+        ensure_connect(dbnum)
+        return Memo.objects.using(dbname(dbnum)).all()
 
 
 class MemoCreateView(CreateView):
@@ -34,12 +54,18 @@ class MemoCreateView(CreateView):
     """
     model = Memo
     form_class = MemoForm
-    success_url = reverse_lazy('memo_list')
+
+    def get_success_url(self):
+        return reverse('memo_list', kwargs={'dbnum': self.kwargs['dbnum']})
 
     def form_valid(self, form):
+        # form.instance にはsaveしていないモデルのインスタンスが入っている
+        form.instance.save(using=dbname(self.kwargs['dbnum']))
+
         result = super().form_valid(form)
         messages.success(
             self.request, '「{}」を作成しました'.format(form.instance))
+
         return result
 
 
@@ -50,7 +76,13 @@ class MemoUpdateView(UpdateView):
     model = Memo
     form_class = MemoForm
 
-    success_url = reverse_lazy('memo_list')
+    def get_success_url(self):
+        return reverse('memo_list', kwargs={'dbnum': self.kwargs['dbnum']})
+
+    def get_queryset(self):
+        dbnum = self.kwargs['dbnum']
+        ensure_connect(dbnum)
+        return Memo.objects.using(dbname(dbnum)).all()
 
     def form_valid(self, form):
         result = super().form_valid(form)
@@ -70,7 +102,11 @@ class MemoDeleteView(DeleteView):
     model = Memo
     form_class = MemoForm
 
-    success_url = reverse_lazy('memo_list')
+    def get_success_url(self):
+        return reverse('memo_list', kwargs={'dbnum': self.kwargs['dbnum']})
+
+    def get_queryset(self):
+        return Memo.objects.using(dbname(self.kwargs['dbnum'])).all()
 
     def delete(self, request, *args, **kwargs):
         result = super().delete(request, *args, **kwargs)
