@@ -11,7 +11,7 @@ class MemoListView(ListView):
     """
     メモを一覧表示
     テンプレートは、何も指定しないと モデル名_list.html が使われる
-    ListView は、パジネーションもやってくれる
+    ListView は、ページネーションもやってくれる
     """
     model = Memo
     paginate_by = 10  # 1ページに表示する件数
